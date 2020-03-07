@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Bubble extends StatelessWidget {
-  final String time;
+  final String message;
   final send;
 
-  Bubble({this.time, this.send});
+  Bubble({this.message, this.send});
 
   @override
   Widget build(BuildContext context) {
@@ -45,16 +45,20 @@ class Bubble extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(right: 220.0),
+                child: Text(message),
               ),
               Positioned(
                 bottom: 0.0,
                 right: 0.0,
-                child: Icon(
+                child: Row(
+                  children: <Widget>[Icon(
                       Icons.arrow_right,
-                      size: 20.0,
+                      size: 30.0,
                       color: Colors.black38,
-                )
-              )
+                  ),
+                  ],
+                ),
+              ),
             ],
           ),
         )

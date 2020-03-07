@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:franle_app/web_socket/websocket.dart';
 import './bubble.dart';
 //import 'package:google_fonts/google_fonts.dart';
 
@@ -49,27 +50,30 @@ class ChatFranle extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
-        child: Column(
+        child: WebSocketChat(),/*Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            Expanded(
+              child: WebSocketChat(),
+            ),
             Bubble(
-              time: '12:00',
+              message: '12:00',
               send: false,
             ),
             Bubble(
-              time: '12:01',
+              message: '12:01',
               send: false,
             ),
             Bubble(
-              time: '12:02',
+              message: '12:02',
               send: true,
             ),
             Bubble(
-              time: '12:03',
+              message: '12:03',
               send: false,
             ),
           ],
-        ),
+        ),*/
       ),
     );
   }
