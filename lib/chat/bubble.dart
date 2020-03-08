@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:franle_app/voice/text2Speech.dart';
 
 class Bubble extends StatelessWidget {
   final String message;
@@ -45,9 +46,9 @@ class Bubble extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(right: 220.0),
-                child: Text(message),
+                child: Text2Speech(text: message),
               ),
-              Positioned(
+              /*Positioned(
                 bottom: 0.0,
                 right: 0.0,
                 child: Row(
@@ -58,7 +59,7 @@ class Bubble extends StatelessWidget {
                   ),
                   ],
                 ),
-              ),
+              ),*/
             ],
           ),
         )
