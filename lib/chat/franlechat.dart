@@ -9,14 +9,11 @@ class ChatFranle extends StatelessWidget {
     return Scaffold(
       appBar: 
         PreferredSize(
-        preferredSize: Size.fromHeight(100),
+        preferredSize: Size.fromHeight(110),
         child: AppBar(
           backgroundColor: Color.fromRGBO(255, 131, 0, 0.8),
-        title: Center(child: Text("Franle",)),
-        shape: ContinuousRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.elliptical(600, 600),
-            bottomRight: Radius.elliptical(0, 0))),
+          title: Center(child: Text("Franle",)),
+          shape: CubicBezierShapeBorder(),
         ),
       ),
       drawer: Drawer(
@@ -50,99 +47,62 @@ class ChatFranle extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
-        child: WebSocketChat(),/*Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Expanded(
-              child: WebSocketChat(),
-            ),
-            Bubble(
-              message: '12:00',
-              send: false,
-            ),
-            Bubble(
-              message: '12:01',
-              send: false,
-            ),
-            Bubble(
-              message: '12:02',
-              send: true,
-            ),
-            Bubble(
-              message: '12:03',
-              send: false,
-            ),
-          ],
-        ),*/
+        child: WebSocketChat(),
+      ),
+      bottomNavigationBar: PreferredSize(
+        preferredSize: Size.fromHeight(100),
+        child: BottomAppBar(
+          color: Color.fromRGBO(255, 131, 0, 0.8),
+          child: Padding(
+            padding: const EdgeInsets.all(23.0),
+            //child: Icon(Icons.mic),
+          ),
+          shape: AutomaticNotchedShape(CubicBezierShapeBorderBottom(), CircleBorder(),),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(onPressed: () {},
+        child: Icon(Icons.mic),
       ),
     );
   }
 }
 
-class ShapeAppBar extends ContinuousRectangleBorder {
 
+class CubicBezierShapeBorder extends ContinuousRectangleBorder {
   @override
   Path getOuterPath(Rect rect, {TextDirection textDirection}) {
-    /*Path path = Path();
-    path.quadraticBezierTo(rect.width + 50, rect.height, rect.width, rect.height);
-    
-    return path;*/
-    final double innerCircleRadius = 150.0;
-
     Path path = Path();
-    path.lineTo(0, rect.height);
-    path.quadraticBezierTo(rect.width / 2 - (innerCircleRadius / 2) - 30, rect.height + 15, rect.width / 2 - 75, rect.height + 50);
+    Offset control1 = Offset(rect.width, rect.height * 1.8);
+    Offset control2 = Offset(0.0, 0.0);
+    Offset endPoint = Offset(rect.width, rect.height * 0.0);
+    path.lineTo(0.0, rect.height* 1.20);
     path.cubicTo(
-        rect.width / 2 - 40, rect.height + innerCircleRadius - 40,
-        rect.width / 2 + 40, rect.height + innerCircleRadius - 40,
-        rect.width / 2 + 75, rect.height + 50
-    );
-    path.quadraticBezierTo(rect.width / 2 + (innerCircleRadius / 2) + 30, rect.height + 15, rect.width, rect.height);
-    path.lineTo(rect.width, 0.0);
+        control2.dx, control2.dy, control1.dx, control1.dy, endPoint.dx,
+        endPoint.dy);
+    path.lineTo(0.0, 0.0);
+    
     path.close();
-
     return path;
   }
 }
 
-
-class CustomShapeBorder extends ContinuousRectangleBorder {
+class CubicBezierShapeBorderBottom extends ContinuousRectangleBorder {
   @override
   Path getOuterPath(Rect rect, {TextDirection textDirection}) {
-
-    //final double innerCircleRadius = 150.0;
-
     Path path = Path();
-    //path.lineTo(0, rect.height + 50);
-    //path.cubicTo(250, rect.height, 200, 200, rect.width, 0);
-    //path.quadraticBezierTo(0.12 * rect.width, 0.98 * rect.height, 0.93 * rect.width, 0.08 * rect.height + 50);
-    /*path.cubicTo(
-        rect.width, rect.height,
-        rect.width, rect.height+50,
-        rect.width+50, rect.height
-    );*/
-    //path.quadraticBezierTo(rect.width / 2 + (innerCircleRadius / 2) + 30, rect.height + 15, rect.width, rect.height);
-    //path.lineTo(0, rect.height);
-    //path.lineTo(rect.width, 0);
-    //path.lineTo(0, rect.height);
-    //path.lineTo(rect.width, rect.height);
-    //path.lineTo(0, 0);
-    /*path.lineTo(0.0, size.height - 20);
-    var firstControlPoint = Offset(size.width / 4, size.height);
-    var firstEndPoint = Offset(size.width / 2.25, size.height - 30.0);
-    path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy,
-        firstEndPoint.dx, firstEndPoint.dy);
-    var secondControlPoint =
-        Offset(size.width - (size.width / 3.25), size.height - 65);
-    var secondEndPoint = Offset(size.width, size.height - 40);
-    path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy,
-        secondEndPoint.dx, secondEndPoint.dy);
-    path.lineTo(size.width, size.height - 40);
-    path.lineTo(size.width, 0.0);
-    path.close();
-    return path;*/
-    path.close();
+    Offset control1 = Offset(rect.width, rect.height * 0.66);
+    Offset control2 = Offset(0.0, rect.height * -2.33);
+    Offset endPoint = Offset(rect.width, rect.height * -2.0);
+    path.cubicTo(
+        control2.dx, control2.dy, control1.dx, control1.dy, endPoint.dx,
+        endPoint.dy);
+    path.lineTo(rect.width, rect.height);
+    path.lineTo(0.0, rect.height);
+    path.lineTo(0.0, 0.0);
 
+    
+    path.close();
     return path;
   }
 }

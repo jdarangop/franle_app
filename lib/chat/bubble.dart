@@ -28,7 +28,7 @@ class Bubble extends StatelessWidget {
       children: <Widget>[
         Container(
           margin: const EdgeInsets.all(7.0),
-          padding: const EdgeInsets.all(18.0),
+          padding: const EdgeInsets.all(10.0),
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
@@ -39,27 +39,13 @@ class Bubble extends StatelessWidget {
             color: colorChat,
             borderRadius: radius,
           ),
-          child: /*Padding(
-                padding: EdgeInsets.only(right: 220.0),
-              ),*/
+          child:
             Stack(
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(right: 220.0),
                 child: Text2Speech(text: message),
               ),
-              /*Positioned(
-                bottom: 0.0,
-                right: 0.0,
-                child: Row(
-                  children: <Widget>[Icon(
-                      Icons.arrow_right,
-                      size: 30.0,
-                      color: Colors.black38,
-                  ),
-                  ],
-                ),
-              ),*/
             ],
           ),
         )
