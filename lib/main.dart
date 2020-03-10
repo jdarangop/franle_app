@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:franle_app/chat/chatfranle.dart';
 import 'package:franle_app/web_socket/websocket.dart';
 import './chat/franlechat.dart';
 
@@ -10,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ChatFranle(), //WebSocketChat(),
+      home: ChatFran(),//ChatFranle(), WebSocketChat(),
     );
   }
 }
