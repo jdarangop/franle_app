@@ -12,8 +12,8 @@ class Speech2Text extends StatefulWidget {
 
 class _Speech2TextState extends State<Speech2Text> {
   SpeechRecognition _speechRecognition;
-  /*bool _isAvailable = false;
-  bool _isListening = false;*/
+  bool _isAvailable = false;
+  bool _isListening = false;
   WebSocketChat channel;
 
   String resultText = "";
@@ -29,25 +29,25 @@ class _Speech2TextState extends State<Speech2Text> {
   void initSpeechRecognizer() {
     _speechRecognition = SpeechRecognition();
 
-    /*_speechRecognition.setAvailabilityHandler(
+    _speechRecognition.setAvailabilityHandler(
       (bool result) => setState(() => _isAvailable = result),
     );
 
     _speechRecognition.setRecognitionStartedHandler(
       () => setState(() => _isListening = true),
-    );*/
+    );
 
     _speechRecognition.setRecognitionResultHandler(
       (String speech) => setState(() => resultText = speech),
     );
 
-    /*_speechRecognition.setRecognitionCompleteHandler(
+    _speechRecognition.setRecognitionCompleteHandler(
       () => setState(() => _isListening = false),
     );
 
     _speechRecognition.activate().then(
           (result) => setState(() => _isAvailable = result),
-        );*/
+        );
   }
 
   @override
@@ -57,7 +57,7 @@ class _Speech2TextState extends State<Speech2Text> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                /*FloatingActionButton(
+                FloatingActionButton(
                   child: Icon(Icons.cancel),
                   backgroundColor: Colors.deepOrange,
                   onPressed: () {
@@ -69,28 +69,32 @@ class _Speech2TextState extends State<Speech2Text> {
                           }),
                       );
                   },
-                ),*/
+                ),
                 FloatingActionButton(
                   child: Icon(Icons.mic),
                   onPressed: () {
-                    channel.sendChat('UltimaaaPrueba');
-                    /*channel.channel.sink.add('Pruebaaaaaaaaaaaaaaaaaaa12453');
-                    var tmp = {'data': 'Pruebaaaaaaaaaaaaaaaaaaa12453', 'send': false};
+                    //channel.sendChat('UltimaaaPrueba');
+                    /*channel.channel.sink.add('hey how are you?');
+                    var tmp = {'data': 'hey how are you', 'send': false};
                     setState(() {
                       channel.messages.add(tmp);
                     });*/
                     //obj.sendChat('Pruebaaaaaaaaaaaaaaaaaaa12453');
                     //if (_isAvailable && !_isListening) {
-                     /* _speechRecognition
+                      _speechRecognition
                           .listen(locale: "en_US")
                           .then((result) {
-                            
-                          });*/
+                            channel.channel.sink.add(resultText);
+                            var tmp = {'data': resultText, 'send': false};
+                            setState(() {
+                              channel.messages.add(tmp);
+                            });
+                          });
                     //}
                   },
-                  backgroundColor: Colors.pink,
+                  backgroundColor: Colors.black,
                 ),
-                /*FloatingActionButton(
+                FloatingActionButton(
                   child: Icon(Icons.stop),
                   backgroundColor: Colors.deepPurple,
                   onPressed: () {
@@ -99,7 +103,7 @@ class _Speech2TextState extends State<Speech2Text> {
                             (result) => setState(() => _isListening = result),
                           );
                   },
-                ),*/
+                ),
               ],
             ),
     );

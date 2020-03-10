@@ -18,8 +18,10 @@ class ChatFran extends StatefulWidget {
 class _ChatFranState extends State<ChatFran> {
   SpeechRecognition _speechRecognition;
   final WebSocketChannel channel;
-  List<Map> messages;
+  List<Map> messages = [];
   String resultText = "";
+  bool _isAvailable = false;
+  bool _isListening = false;
 
   _ChatFranState({this.channel}) {
     channel.sink.add('{"nativeLang":"eng", "newLang":"spa"}');
@@ -41,25 +43,25 @@ class _ChatFranState extends State<ChatFran> {
   void initSpeechRecognizer() {
     _speechRecognition = SpeechRecognition();
 
-    /*_speechRecognition.setAvailabilityHandler(
+    _speechRecognition.setAvailabilityHandler(
       (bool result) => setState(() => _isAvailable = result),
     );
 
     _speechRecognition.setRecognitionStartedHandler(
       () => setState(() => _isListening = true),
-    );*/
+    );
 
     _speechRecognition.setRecognitionResultHandler(
       (String speech) => setState(() => resultText = speech),
     );
 
-    /*_speechRecognition.setRecognitionCompleteHandler(
+    _speechRecognition.setRecognitionCompleteHandler(
       () => setState(() => _isListening = false),
     );
 
     _speechRecognition.activate().then(
           (result) => setState(() => _isAvailable = result),
-        );*/
+        );
   }
 
   @override
@@ -106,7 +108,16 @@ class _ChatFranState extends State<ChatFran> {
       body:
         Padding(
           padding: EdgeInsets.all(16.0),
-          child: chatList(),//WebSocketChat(),
+          child: Container(
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Expanded(
+              child: chatList(),
+            ),
+          ]
+        ),
+      ),//WebSocketChat(),
         ),
       bottomNavigationBar: PreferredSize(
         preferredSize: Size.fromHeight(100),
@@ -120,26 +131,61 @@ class _ChatFranState extends State<ChatFran> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton:
+          Container(
+      child: 
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                FloatingActionButton(
+                  child: Icon(Icons.cancel),
+                  backgroundColor: Colors.blue,
+                  onPressed: () {
+                    if (_isListening)
+                      _speechRecognition.cancel().then(
+                          (result) => setState(() {
+                              _isListening = result;
+                              resultText = "";
+                          }),
+                      );
+                  },
+                ),
                 FloatingActionButton(
                   child: Icon(Icons.mic),
                   onPressed: () {
-                    sendChat('UltimaaaPrueba');
-                    /*channel.channel.sink.add('Pruebaaaaaaaaaaaaaaaaaaa12453');
-                    var tmp = {'data': 'Pruebaaaaaaaaaaaaaaaaaaa12453', 'send': false};
+                    //channel.sendChat('UltimaaaPrueba');
+                    /*channel.channel.sink.add('hey how are you?');
+                    var tmp = {'data': 'hey how are you', 'send': false};
                     setState(() {
                       channel.messages.add(tmp);
                     });*/
                     //obj.sendChat('Pruebaaaaaaaaaaaaaaaaaaa12453');
                     //if (_isAvailable && !_isListening) {
-                     /* _speechRecognition
+                      _speechRecognition
                           .listen(locale: "en_US")
                           .then((result) {
-                            
-                          });*/
+                            channel.sink.add(resultText);
+                            var tmp = {'data': resultText, 'send': false};
+                            setState(() {
+                              messages.add(tmp);
+                            });
+                          });
                     //}
                   },
-                  backgroundColor: Colors.red,
+                  backgroundColor: Colors.blue,
                 ),
+                FloatingActionButton(
+                  child: Icon(Icons.stop),
+                  backgroundColor: Colors.blue,
+                  onPressed: () {
+                    if (_isListening)
+                      _speechRecognition.stop().then(
+                            (result) => setState(() => _isListening = result),
+                          );
+                  },
+                ),
+              ],
+            ),
+    ),
     );
   }
 
