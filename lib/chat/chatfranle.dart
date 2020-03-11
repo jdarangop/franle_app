@@ -159,17 +159,18 @@ class _ChatFranState extends State<ChatFran> {
                       channel.messages.add(tmp);
                     });*/
                     //obj.sendChat('Pruebaaaaaaaaaaaaaaaaaaa12453');
-                    //if (_isAvailable && !_isListening) {
+                    if (_isAvailable && !_isListening) {
                       _speechRecognition
                           .listen(locale: "en_US")
                           .then((result) {
-                            channel.sink.add(resultText);
-                            var tmp = {'data': resultText, 'send': false};
-                            setState(() {
-                              messages.add(tmp);
-                            });
                           });
-                    //}
+                      sendChat(resultText);
+                      /*channel.sink.add(resultText);
+                      var tmp = {'data': resultText, 'send': false};
+                      setState(() {
+                        messages.add(tmp);
+                      });*/
+                    }
                   },
                   backgroundColor: Colors.blue,
                 ),
@@ -198,7 +199,6 @@ class _ChatFranState extends State<ChatFran> {
     return ListView(children: listaChats,);
   }
 
-  @override
   void sendChat(String text) {
     print(text);
     //if (text.isEmpty) {
