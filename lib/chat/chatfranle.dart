@@ -159,18 +159,19 @@ class _ChatFranState extends State<ChatFran> {
                       channel.messages.add(tmp);
                     });*/
                     //obj.sendChat('Pruebaaaaaaaaaaaaaaaaaaa12453');
-                    if (_isAvailable && !_isListening) {
+                    //if (_isAvailable && !_isListening) {
                       _speechRecognition
                           .listen(locale: "en_US")
                           .then((result) {
+                            sendChat(resultText);
                           });
-                      sendChat(resultText);
+                      //sendChat(resultText);
                       /*channel.sink.add(resultText);
                       var tmp = {'data': resultText, 'send': false};
                       setState(() {
                         messages.add(tmp);
                       });*/
-                    }
+                    //}
                   },
                   backgroundColor: Colors.blue,
                 ),
@@ -180,7 +181,10 @@ class _ChatFranState extends State<ChatFran> {
                   onPressed: () {
                     if (_isListening)
                       _speechRecognition.stop().then(
-                            (result) => setState(() => _isListening = result),
+                            (result) {
+                              setState(() => _isListening = result);
+                              sendChat(resultText);
+                            }
                           );
                   },
                 ),
@@ -200,13 +204,15 @@ class _ChatFranState extends State<ChatFran> {
   }
 
   void sendChat(String text) {
-    print(text);
+    print(text + " is into the sendChat");
     //if (text.isEmpty) {
-    channel.sink.add(text);
-    var tmp = {'data': text, 'send': false};
-    setState(() {
+    if (text != "") {
+      channel.sink.add(text);
+      var tmp = {'data': text, 'send': false};
+      setState(() {
         messages.add(tmp);
-    });
+      });
+    }
     //}
   }
 }
