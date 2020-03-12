@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 //import 'package:franle_app/voice/speech2Text.dart';
 import 'package:speech_recognition/speech_recognition.dart';
 import 'package:web_socket_channel/io.dart';
@@ -72,7 +73,7 @@ class _ChatFranState extends State<ChatFran> {
         preferredSize: Size.fromHeight(110),
         child: AppBar(
           backgroundColor: Color.fromRGBO(255, 131, 0, 0.8),
-          title: Center(child: Text("Franle",)),
+          title: Center(child: Text("Franle", style: GoogleFonts.lobster(fontSize: 50),)),
           shape: CubicBezierShapeBorder(),
         ),
       ),
