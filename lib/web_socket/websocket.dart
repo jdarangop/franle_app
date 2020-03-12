@@ -6,23 +6,41 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 class WebSocketChat extends StatefulWidget {
   final WebSocketChannel channel = 
   IOWebSocketChannel.connect('ws://34.74.231.8');
+  List<Map> messages = [];
+  String text = "";
+
+  //WebSocketChat({this.text})
+  void sendChat(String text) {
+    text = text;
+  }
 
   @override
-  _WebSocketChatState createState() => _WebSocketChatState(channel: channel);
+  WebSocketChatState createState() => WebSocketChatState(channel: channel, messages: messages, text: text);
 }
 
-class _WebSocketChatState extends State<WebSocketChat> {
+class WebSocketChatState extends State<WebSocketChat> {
   final WebSocketChannel channel;
-  List<String> messages = [];
+  List<Map> messages;
+  String text;
 
-  _WebSocketChatState({this.channel}) {
+  WebSocketChatState({this.channel, this.messages, this.text}) {
     channel.sink.add('{"nativeLang":"eng", "newLang":"spa"}');
+    if (text.isNotEmpty) {
+      sendChat(text);
+    }
     channel.stream.listen((data) {
+      var tmp = {'data': data, 'send':true};
       print(data);
       setState(() {
-        messages.add(data);
+        messages.add(tmp);
       });
     });
+  }
+
+  @override
+  void dispose() {
+    channel.sink.close();
+    super.dispose();
   }
 
   @override
@@ -42,9 +60,25 @@ class _WebSocketChatState extends State<WebSocketChat> {
   ListView chatList() {
     List<Widget> listaChats = [];
 
-    for (String mess in messages) {
-      listaChats.add(Bubble(message: mess, send: true));
+    for (var mess in messages) {
+      listaChats.add(Bubble(message: mess['data'], send: mess['send']));
     }
     return ListView(children: listaChats,);
+  }
+
+  void startListen() {
+
+  }
+
+  @override
+  void sendChat(String text) {
+    print(text);
+    //if (text.isEmpty) {
+    channel.sink.add(text);
+    var tmp = {'data': text, 'send': false};
+    setState(() {
+        messages.add(tmp);
+    });
+    //}
   }
 }

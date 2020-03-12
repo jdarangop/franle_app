@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:franle_app/voice/speech2Text.dart';
 import 'package:franle_app/web_socket/websocket.dart';
 import './bubble.dart';
 //import 'package:google_fonts/google_fonts.dart';
 
 class ChatFranle extends StatelessWidget {
+  WebSocketChat canal = new WebSocketChat();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,10 +48,11 @@ class ChatFranle extends StatelessWidget {
           ]
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: WebSocketChat(),
-      ),
+      body:
+        Padding(
+          padding: EdgeInsets.all(16.0),
+          child: canal,//WebSocketChat(),
+        ),
       bottomNavigationBar: PreferredSize(
         preferredSize: Size.fromHeight(100),
         child: BottomAppBar(
@@ -61,9 +65,15 @@ class ChatFranle extends StatelessWidget {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(onPressed: () {},
+      floatingActionButton: Speech2Text(channel: canal),/*FloatingActionButton(onPressed: () {
+        canal.channel.sink.add('Pruebaaaaaaaaaaaaaaaaaaa12453');
+        var tmp = {'data': 'Pruebaaaaaaaaaaaaaaaaaaa12453', 'send': false};
+        canal.messages.add(tmp);
+        //WebSocketChatState obj = new WebSocketChatState(channel: canal.channel);
+        //obj.sendChat('Pruebaaaaaaaaaaaaaaaaaaa12453');
+      },
         child: Icon(Icons.mic),
-      ),
+      ),*/
     );
   }
 }
