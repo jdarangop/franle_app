@@ -56,18 +56,19 @@ class _Text2SpeechState extends State<Text2Speech> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      //width: MediaQuery.of(context).size.width * 0.2,
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
         IconButton(
           icon: Icon(Icons.play_arrow),
           onPressed: () => _speak(),
-          color: Colors.blue,
-          splashColor: Colors.deepPurple,
+          color: Color.fromRGBO(0, 131, 179, 0.6),
+          splashColor: Colors.white,
         ),
         IconButton(
           icon: Icon(Icons.stop),
           onPressed: () => _stop(),
-          color: Colors.red,
-          splashColor: Colors.deepPurple,
+          color: Color.fromRGBO(0, 131, 179, 0.6),
+          splashColor: Colors.white,
         ),
       ]),      
     );
