@@ -28,7 +28,7 @@ class Bubble extends StatelessWidget {
       children: <Widget>[
         Container(
           margin: const EdgeInsets.all(7.0),
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(7.0),
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
@@ -43,6 +43,7 @@ class Bubble extends StatelessWidget {
             Stack(
             children: <Widget>[
               Padding(
+                //padding: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.50),
                 padding: EdgeInsets.only(right: 220.0),
                 child: Text2Speech(text: message),
               ),

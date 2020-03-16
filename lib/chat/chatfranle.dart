@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-//import 'package:franle_app/voice/speech2Text.dart';
 import 'package:speech_recognition/speech_recognition.dart';
 import 'package:web_socket_channel/io.dart';
-//import 'package:franle_app/web_socket/websocket.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import './bubble.dart';
-//import 'package:google_fonts/google_fonts.dart';
 
 class ChatFran extends StatefulWidget {
   final WebSocketChannel channel = 
@@ -72,8 +69,11 @@ class _ChatFranState extends State<ChatFran> {
         PreferredSize(
         preferredSize: Size.fromHeight(110),
         child: AppBar(
-          backgroundColor: Color.fromRGBO(255, 131, 0, 0.8),
-          title: Center(child: Text("Franle", style: GoogleFonts.lobster(fontSize: 50),)),
+          bottomOpacity: 1,
+          centerTitle: true,
+          backgroundColor: Color.fromRGBO(0, 131, 179, 0.6),
+          //backgroundColor: Color.fromRGBO(255, 131, 0, 0.8),
+          title: Text("Franle", style: GoogleFonts.norican(fontSize: 50),),
           shape: CubicBezierShapeBorder(),
         ),
       ),
@@ -123,11 +123,12 @@ class _ChatFranState extends State<ChatFran> {
       bottomNavigationBar: PreferredSize(
         preferredSize: Size.fromHeight(100),
         child: BottomAppBar(
-          color: Color.fromRGBO(255, 131, 0, 0.8),
+          color: Color.fromRGBO(0, 131, 179, 0.6),
+          //color: Color.fromRGBO(255, 131, 0, 0.8),
           child: Padding(
             padding: const EdgeInsets.all(23.0),
           ),
-          shape: AutomaticNotchedShape(CubicBezierShapeBorderBottom(), CircleBorder(),),
+          shape: AutomaticNotchedShape(CubicBezierShapeBorderBottom(),), // CircleBorder(),),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -135,19 +136,19 @@ class _ChatFranState extends State<ChatFran> {
           Container(
       child: 
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 FloatingActionButton(
                   child: Icon(Icons.cancel),
-                  backgroundColor: Colors.blue,
+                  backgroundColor: Color.fromRGBO(255, 144, 25, 0.8),
                   onPressed: () {
                     if (_isListening)
                       _speechRecognition.cancel().then(
                           (result) => setState(() {
                               _isListening = result;
                               resultText = "";
-                          }),
-                      );
+                      }),
+                    );
                   },
                 ),
                 FloatingActionButton(
@@ -174,11 +175,11 @@ class _ChatFranState extends State<ChatFran> {
                       });*/
                     //}
                   },
-                  backgroundColor: Colors.blue,
+                  backgroundColor: Color.fromRGBO(255, 144, 25, 0.8),
                 ),
                 FloatingActionButton(
                   child: Icon(Icons.stop),
-                  backgroundColor: Colors.blue,
+                  backgroundColor: Color.fromRGBO(255, 144, 25, 0.8),
                   onPressed: () {
                     if (_isListening)
                       _speechRecognition.stop().then(
