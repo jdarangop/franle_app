@@ -9,6 +9,7 @@ class Bubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size.height;
     final colorChat = send ? Color.fromRGBO(255, 144, 25, 0.8) : Color.fromRGBO(0, 131, 179, 0.8);
     final align = send ? CrossAxisAlignment.start : CrossAxisAlignment.end;
     final radius = send
@@ -27,8 +28,10 @@ class Bubble extends StatelessWidget {
       crossAxisAlignment: align,
       children: <Widget>[
         Container(
-          margin: const EdgeInsets.all(7.0),
-          padding: const EdgeInsets.all(7.0),
+          //margin: EdgeInsets.all(7.0),
+          //padding: const EdgeInsets.all(7.0),
+          margin: EdgeInsets.all(size * 0.01),
+          padding: EdgeInsets.all(size * 0.01),
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
@@ -43,8 +46,8 @@ class Bubble extends StatelessWidget {
             Stack(
             children: <Widget>[
               Padding(
-                //padding: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.50),
-                padding: EdgeInsets.only(right: 220.0),
+                padding: EdgeInsets.only(right: size * 0.25),
+                //padding: EdgeInsets.only(right: 200.0),
                 child: Text2Speech(text: message),
               ),
             ],
