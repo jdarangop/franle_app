@@ -8,6 +8,7 @@ import './bubble.dart';
 class ChatFran extends StatefulWidget {
   final WebSocketChannel channel = 
   IOWebSocketChannel.connect('ws://34.74.231.8');
+
  
   @override
   _ChatFranState createState() => _ChatFranState(channel: channel);
@@ -64,10 +65,13 @@ class _ChatFranState extends State<ChatFran> {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: 
         PreferredSize(
-        preferredSize: Size.fromHeight(110),
+        //preferredSize: Size.fromHeight(110),
+        preferredSize: Size.fromHeight(height * 0.15),
         child: AppBar(
           bottomOpacity: 1,
           centerTitle: true,
@@ -108,7 +112,8 @@ class _ChatFranState extends State<ChatFran> {
       ),
       body:
         Padding(
-          padding: EdgeInsets.all(16.0),
+          //padding: EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(height*0.02),
           child: Container(
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -121,12 +126,14 @@ class _ChatFranState extends State<ChatFran> {
       ),//WebSocketChat(),
         ),
       bottomNavigationBar: PreferredSize(
-        preferredSize: Size.fromHeight(100),
+        //preferredSize: Size.fromHeight(100),
+        preferredSize: Size.fromHeight(height * 0.14),
         child: BottomAppBar(
           color: Color.fromRGBO(0, 131, 179, 0.6),
           //color: Color.fromRGBO(255, 131, 0, 0.8),
           child: Padding(
-            padding: const EdgeInsets.all(23.0),
+            //padding: const EdgeInsets.all(23.0),
+            padding: EdgeInsets.all(height * 0.032),
           ),
           shape: AutomaticNotchedShape(CubicBezierShapeBorderBottom(),), // CircleBorder(),),
         ),
