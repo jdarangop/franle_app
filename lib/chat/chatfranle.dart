@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:franle_app/chat/appbarstyle.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:speech_recognition/speech_recognition.dart';
 import 'package:web_socket_channel/io.dart';
@@ -8,10 +9,17 @@ import './bubble.dart';
 class ChatFran extends StatefulWidget {
   final WebSocketChannel channel = 
   IOWebSocketChannel.connect('ws://34.74.231.8');
+  String nativeLang;
+  String learningLang;
 
+  ChatFran({this.nativeLang, this.learningLang});
  
   @override
-  _ChatFranState createState() => _ChatFranState(channel: channel);
+  _ChatFranState createState() => _ChatFranState(
+    channel: channel,
+    nativeLang: nativeLang,
+    learningLang: learningLang
+  );
 }
 
 class _ChatFranState extends State<ChatFran> {
@@ -21,9 +29,18 @@ class _ChatFranState extends State<ChatFran> {
   String resultText = "";
   bool _isAvailable = false;
   bool _isListening = false;
+  String nativeLang;
+  String learningLang;
+  var languages = {
+    'Español': '"spa"',
+    'English': '"eng"',
+    'Deutsch': '"deu"',
+    'Français': '"fr"',
+  };
 
-  _ChatFranState({this.channel}) {
-    channel.sink.add('{"nativeLang":"eng", "newLang":"spa"}');
+
+  _ChatFranState({this.channel, this.nativeLang, this.learningLang}) {
+    channel.sink.add('{"nativeLang":' + languages[nativeLang] + ', ' + '"newLang":' + languages[learningLang] +'}');
     channel.stream.listen((data) {
       var tmp = {'data': data, 'send':true};
       print(data);
@@ -146,6 +163,7 @@ class _ChatFranState extends State<ChatFran> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 FloatingActionButton(
+                  heroTag: 'btn1',
                   child: Icon(Icons.cancel),
                   backgroundColor: Color.fromRGBO(255, 144, 25, 0.8),
                   onPressed: () {
@@ -159,6 +177,7 @@ class _ChatFranState extends State<ChatFran> {
                   },
                 ),
                 FloatingActionButton(
+                  heroTag: 'btn2',
                   child: Icon(Icons.mic),
                   onPressed: () {
                     //channel.sendChat('UltimaaaPrueba');
@@ -185,6 +204,7 @@ class _ChatFranState extends State<ChatFran> {
                   backgroundColor: Color.fromRGBO(255, 144, 25, 0.8),
                 ),
                 FloatingActionButton(
+                  heroTag: 'btn3',
                   child: Icon(Icons.stop),
                   backgroundColor: Color.fromRGBO(255, 144, 25, 0.8),
                   onPressed: () {
@@ -223,44 +243,5 @@ class _ChatFranState extends State<ChatFran> {
       });
     }
     //}
-  }
-}
-
-
-class CubicBezierShapeBorder extends ContinuousRectangleBorder {
-  @override
-  Path getOuterPath(Rect rect, {TextDirection textDirection}) {
-    Path path = Path();
-    Offset control1 = Offset(rect.width, rect.height * 1.8);
-    Offset control2 = Offset(0.0, 0.0);
-    Offset endPoint = Offset(rect.width, rect.height * 0.0);
-    path.lineTo(0.0, rect.height* 1.20);
-    path.cubicTo(
-        control2.dx, control2.dy, control1.dx, control1.dy, endPoint.dx,
-        endPoint.dy);
-    path.lineTo(0.0, 0.0);
-    
-    path.close();
-    return path;
-  }
-}
-
-class CubicBezierShapeBorderBottom extends ContinuousRectangleBorder {
-  @override
-  Path getOuterPath(Rect rect, {TextDirection textDirection}) {
-    Path path = Path();
-    Offset control1 = Offset(rect.width, rect.height * 0.66);
-    Offset control2 = Offset(0.0, rect.height * -2.33);
-    Offset endPoint = Offset(rect.width, rect.height * -2.0);
-    path.cubicTo(
-        control2.dx, control2.dy, control1.dx, control1.dy, endPoint.dx,
-        endPoint.dy);
-    path.lineTo(rect.width, rect.height);
-    path.lineTo(0.0, rect.height);
-    path.lineTo(0.0, 0.0);
-
-    
-    path.close();
-    return path;
   }
 }
