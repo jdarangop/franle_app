@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       //builder: DevicePreview.appBuilder,
-      home: SelectScreen(), //ChatFran(), LoginScreen(),SelectScreen(), ChatFran(), ChatFranle(), WebSocketChat(),
+      home: LoginScreen(), //ChatFran(), LoginScreen(),SelectScreen(), ChatFran(), ChatFranle(), WebSocketChat(),
     );
   }
 }
