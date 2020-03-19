@@ -11,14 +11,16 @@ class ChatFran extends StatefulWidget {
   IOWebSocketChannel.connect('ws://34.74.231.8');
   String nativeLang;
   String learningLang;
+  String username;
 
-  ChatFran({this.nativeLang, this.learningLang});
+  ChatFran({this.nativeLang, this.learningLang, this.username});
  
   @override
   _ChatFranState createState() => _ChatFranState(
     channel: channel,
     nativeLang: nativeLang,
-    learningLang: learningLang
+    learningLang: learningLang,
+    username: username
   );
 }
 
@@ -31,6 +33,8 @@ class _ChatFranState extends State<ChatFran> {
   bool _isListening = false;
   String nativeLang;
   String learningLang;
+  String username;
+
   var languages = {
     'Español': '"spa"',
     'English': '"eng"',
@@ -39,8 +43,8 @@ class _ChatFranState extends State<ChatFran> {
   };
 
 
-  _ChatFranState({this.channel, this.nativeLang, this.learningLang}) {
-    channel.sink.add('{"nativeLang":' + languages[nativeLang] + ', ' + '"newLang":' + languages[learningLang] +'}');
+  _ChatFranState({this.channel, this.nativeLang, this.learningLang, this.username}) {
+    channel.sink.add('{"nativeLang":' + languages[nativeLang] + ', ' + '"newLang":' + languages[learningLang] + ', "username":' + username  +'}');
     channel.stream.listen((data) {
       var tmp = {'data': data, 'send':true};
       print(data);
@@ -233,10 +237,11 @@ class _ChatFranState extends State<ChatFran> {
   }
 
   void sendChat(String text) {
-    print(text + " is into the sendChat");
+    //print(text + " is into the sendChat");
     //if (text.isEmpty) {
     if (text != "") {
-      channel.sink.add(text);
+      var temp = '{"message":' + text + ', "username":' + username + '}';
+      channel.sink.add(temp);
       var tmp = {'data': text, 'send': false};
       setState(() {
         messages.add(tmp);

@@ -4,14 +4,21 @@ import 'package:franle_app/chat/franlechat.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SelectScreen extends StatefulWidget {
+  String username;
+
+  SelectScreen({this.username});
+
   @override
-  _SelectScreenState createState() => _SelectScreenState();
+  SelectScreenState createState() => SelectScreenState(username: username);
 }
 
-class _SelectScreenState extends State<SelectScreen> {
+class SelectScreenState extends State<SelectScreen> {
   String _nativeLanguage;
   String _learningLanguage;
+  String username;
   List<String> idioms = ['Español', 'English', 'Deutsch', 'Français'];
+
+  SelectScreenState({this.username});
 
   @override
   void initState() {
@@ -103,7 +110,9 @@ class _SelectScreenState extends State<SelectScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ChatFran(nativeLang: _nativeLanguage, learningLang: _learningLanguage,)),
+                MaterialPageRoute(builder: (context) => ChatFran(nativeLang: _nativeLanguage,
+                  learningLang: _learningLanguage,
+                  username: username)),
               );
             },
             child: Text('Start'),)
