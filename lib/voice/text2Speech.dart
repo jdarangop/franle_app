@@ -25,7 +25,8 @@ class _Text2SpeechState extends State<Text2Speech> {
 
   initTts() {
     flutterTts = FlutterTts();
-    flutterTts.setLanguage('en-US');
+    //flutterTts.setLanguage('en-US');
+    flutterTts.setLanguage('es-CO');
     //_getLanguages();
   }
 
@@ -37,7 +38,7 @@ class _Text2SpeechState extends State<Text2Speech> {
 
   Future _speak() async {
     await flutterTts.setVolume(0.5);
-    await flutterTts.setSpeechRate(1);
+    await flutterTts.setSpeechRate(0.7);
     await flutterTts.setPitch(0.5);
 
     if (text != null && text.isNotEmpty) {

@@ -9,7 +9,7 @@ import 'package:franle_app/selection/selection_page.dart';
 
 Future<User> fetchUser(username) async {
   final response =
-      await http.get('http://34.74.191.132/users/' + username); //concatenate
+      await http.get('http://35.190.175.59/users/' + username); //concatenate
 
   if (response.statusCode == 200) {
     return User.fromJson(json.decode(response.body));
@@ -85,6 +85,7 @@ class LoginScreen extends StatelessWidget {
                   }
                 ),
                 TextFormField(
+                  obscureText: true,
                   decoration: InputDecoration(labelText: 'Password'),
                   onChanged: (passwordInput) {
                     newUser.passInput = passwordInput;
@@ -103,7 +104,7 @@ class LoginScreen extends StatelessWidget {
                           if (futureUser.password == newUser.passInput) {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => SelectScreen()),
+                              MaterialPageRoute(builder: (context) => SelectScreen(username: newUser.nameInput)),
                             );
                           } else {
                             throw 'Incorrect password';

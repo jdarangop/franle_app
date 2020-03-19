@@ -44,7 +44,7 @@ class _ChatFranState extends State<ChatFran> {
 
 
   _ChatFranState({this.channel, this.nativeLang, this.learningLang, this.username}) {
-    channel.sink.add('{"nativeLang":' + languages[nativeLang] + ', ' + '"newLang":' + languages[learningLang] + ', "username":' + username  +'}');
+    channel.sink.add('{"nativeLang":' + languages[nativeLang] + ', ' + '"newLang":' + languages[learningLang] + ', "username":"' + username  +'"}');
     channel.stream.listen((data) {
       var tmp = {'data': data, 'send':true};
       print(data);
@@ -191,7 +191,7 @@ class _ChatFranState extends State<ChatFran> {
                       channel.messages.add(tmp);
                     });*/
                     //obj.sendChat('Pruebaaaaaaaaaaaaaaaaaaa12453');
-                    //if (_isAvailable && !_isListening) {
+                    if (_isAvailable && !_isListening) {
                       _speechRecognition
                           .listen(locale: "en_US")
                           .then((result) {
@@ -203,7 +203,7 @@ class _ChatFranState extends State<ChatFran> {
                       setState(() {
                         messages.add(tmp);
                       });*/
-                    //}
+                    }
                   },
                   backgroundColor: Color.fromRGBO(255, 144, 25, 0.8),
                 ),
@@ -240,7 +240,7 @@ class _ChatFranState extends State<ChatFran> {
     //print(text + " is into the sendChat");
     //if (text.isEmpty) {
     if (text != "") {
-      var temp = '{"message":' + text + ', "username":' + username + '}';
+      var temp = '{"message":"' + text + '", "username":"' + username + '"}';
       channel.sink.add(temp);
       var tmp = {'data': text, 'send': false};
       setState(() {
