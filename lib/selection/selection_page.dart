@@ -64,7 +64,7 @@ class SelectScreenState extends State<SelectScreen> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.1),
-                child: Text('Native Language:'),
+                child: Text('My native language:', style: GoogleFonts.manjari(fontSize: 18),),
               ),
               DropdownButton(
                 value: _nativeLanguage,
@@ -86,7 +86,7 @@ class SelectScreenState extends State<SelectScreen> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.1),
-                child: Text('Learning:'),
+                child: Text('I\'m learning:', style: GoogleFonts.manjari(fontSize: 18),),
               ),
               DropdownButton(
                 value: _learningLanguage,
@@ -106,16 +106,26 @@ class SelectScreenState extends State<SelectScreen> {
                 },)
             ],
           ),
-          RaisedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ChatFran(nativeLang: _nativeLanguage,
-                  learningLang: _learningLanguage,
-                  username: username)),
-              );
-            },
-            child: Text('Start'),)
+          Container(
+            width: MediaQuery.of(context).size.width * 0.5,
+            child: RaisedButton(
+              color: Color.fromRGBO(255, 144, 25, 0.8),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(15),
+                  bottomRight: Radius.circular(15)
+                ),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ChatFran(nativeLang: _nativeLanguage,
+                    learningLang: _learningLanguage,
+                    username: username)),
+                );
+              },
+              child: Text('Start', style: GoogleFonts.manjari(fontSize: 18),),)
+          ),
         ],
       ),
     );

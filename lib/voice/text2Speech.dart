@@ -3,19 +3,21 @@ import 'package:flutter_tts/flutter_tts.dart';
 
 class Text2Speech extends StatefulWidget {
   String text;
+  String language;
 
-  Text2Speech({this.text});
+  Text2Speech({this.text, this.language});
 
   @override
-  _Text2SpeechState createState() => _Text2SpeechState(text: text);
+  _Text2SpeechState createState() => _Text2SpeechState(text: text, language: language);
 }
 
 class _Text2SpeechState extends State<Text2Speech> {
 
   FlutterTts flutterTts;
   String text;
+  String language;
 
-  _Text2SpeechState({this.text});
+  _Text2SpeechState({this.text, this.language});
 
   @override
   initState() {
@@ -38,7 +40,7 @@ class _Text2SpeechState extends State<Text2Speech> {
 
   Future _speak() async {
     await flutterTts.setVolume(0.5);
-    await flutterTts.setSpeechRate(0.7);
+    await flutterTts.setSpeechRate(0.8);
     await flutterTts.setPitch(0.5);
 
     if (text != null && text.isNotEmpty) {

@@ -35,19 +35,28 @@ class _ChatFranState extends State<ChatFran> {
   String learningLang;
   String username;
 
+ /* var languages_cod = {
+    'Español': 'es_CO',
+    'English': 'en_US',
+    'Deutsch': 'es_CO',
+    'Français': 'es_CO',
+  };*/
+
   var languages = {
-    'Español': '"spa"',
-    'English': '"eng"',
-    'Deutsch': '"deu"',
-    'Français': '"fr"',
+    'Español': ['"spa"', 'es_CO', 'es-CO'],
+    'English': ['"eng"', 'en_US', 'en-US'],
+    'Deutsch': ['"deu"', 'de_DE', 'de-DE'],
+    'Français': ['"fr"', 'fr_FR', 'fr-FR'],
   };
+
+  //String _currentLocale = languages_cod[nativeLang];
 
 
   _ChatFranState({this.channel, this.nativeLang, this.learningLang, this.username}) {
-    channel.sink.add('{"nativeLang":' + languages[nativeLang] + ', ' + '"newLang":' + languages[learningLang] + ', "username":"' + username  +'"}');
+    channel.sink.add('{"nativeLang":' + languages[nativeLang][0] + ', ' + '"newLang":' + languages[learningLang][0] + ', "username":"' + username  +'"}');
     channel.stream.listen((data) {
-      var tmp = {'data': data, 'send':true};
-      print(data);
+      var tmp = {'data': data, 'send':true, 'lang': languages[learningLang][2]};
+      //print(data);
       setState(() {
         messages.add(tmp);
       });
@@ -74,6 +83,9 @@ class _ChatFranState extends State<ChatFran> {
     _speechRecognition.setRecognitionResultHandler(
       (String speech) => setState(() => resultText = speech),
     );
+
+    /*_speechRecognition.setCurrentLocaleHandler((String locale) =>
+ setState(() => _currentLocale = locale));*/
 
     _speechRecognition.setRecognitionCompleteHandler(
       () => setState(() => _isListening = false),
@@ -193,9 +205,9 @@ class _ChatFranState extends State<ChatFran> {
                     //obj.sendChat('Pruebaaaaaaaaaaaaaaaaaaa12453');
                     if (_isAvailable && !_isListening) {
                       _speechRecognition
-                          .listen(locale: "en_US")
+                          .listen(locale: languages[nativeLang][1])
                           .then((result) {
-                            sendChat(resultText);
+                            //sendChat(resultText);
                           });
                       //sendChat(resultText);
                       /*channel.sink.add(resultText);
@@ -212,7 +224,7 @@ class _ChatFranState extends State<ChatFran> {
                   child: Icon(Icons.stop),
                   backgroundColor: Color.fromRGBO(255, 144, 25, 0.8),
                   onPressed: () {
-                    if (_isListening)
+                    if (_isAvailable && _isListening)
                       _speechRecognition.stop().then(
                             (result) {
                               setState(() => _isListening = result);
@@ -231,7 +243,7 @@ class _ChatFranState extends State<ChatFran> {
     List<Widget> listaChats = [];
 
     for (var mess in messages) {
-      listaChats.add(Bubble(message: mess['data'], send: mess['send']));
+      listaChats.add(Bubble(message: mess['data'], send: mess['send'], language: mess['lang']));
     }
     return ListView(children: listaChats,);
   }
@@ -242,7 +254,7 @@ class _ChatFranState extends State<ChatFran> {
     if (text != "") {
       var temp = '{"message":"' + text + '", "username":"' + username + '"}';
       channel.sink.add(temp);
-      var tmp = {'data': text, 'send': false};
+      var tmp = {'data': text, 'send': false, 'lang': languages[nativeLang][2]};
       setState(() {
         messages.add(tmp);
       });

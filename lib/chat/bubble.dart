@@ -4,8 +4,9 @@ import 'package:franle_app/voice/text2Speech.dart';
 class Bubble extends StatelessWidget {
   final String message;
   final send;
+  String language;
 
-  Bubble({this.message, this.send});
+  Bubble({this.message, this.send, this.language});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +49,7 @@ class Bubble extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(right: size * 0.25),
                 //padding: EdgeInsets.only(right: 200.0),
-                child: Text2Speech(text: message),
+                child: Text2Speech(text: message, language: language,),
               ),
             ],
           ),
