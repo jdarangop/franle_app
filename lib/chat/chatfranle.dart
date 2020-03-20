@@ -224,7 +224,7 @@ class _ChatFranState extends State<ChatFran> {
                   child: Icon(Icons.stop),
                   backgroundColor: Color.fromRGBO(255, 144, 25, 0.8),
                   onPressed: () {
-                    if (_isAvailable && _isListening)
+                    if (_isListening)
                       _speechRecognition.stop().then(
                             (result) {
                               setState(() => _isListening = result);

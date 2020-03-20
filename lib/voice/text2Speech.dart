@@ -64,13 +64,13 @@ class _Text2SpeechState extends State<Text2Speech> {
         IconButton(
           icon: Icon(Icons.play_arrow),
           onPressed: () => _speak(),
-          color: Color.fromRGBO(0, 131, 179, 0.6),
+          color: Colors.white,
           splashColor: Colors.white,
         ),
         IconButton(
           icon: Icon(Icons.stop),
           onPressed: () => _stop(),
-          color: Color.fromRGBO(0, 131, 179, 0.6),
+          color: Colors.white,
           splashColor: Colors.white,
         ),
       ]),      
