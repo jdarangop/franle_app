@@ -8,7 +8,7 @@ import './bubble.dart';
 
 class ChatFran extends StatefulWidget {
   final WebSocketChannel channel = 
-  IOWebSocketChannel.connect('ws://34.74.231.8');
+  IOWebSocketChannel.connect('ws://34.74.231.8'); //Socket channel
   String nativeLang;
   String learningLang;
   String username;
@@ -34,14 +34,6 @@ class _ChatFranState extends State<ChatFran> {
   String nativeLang;
   String learningLang;
   String username;
-
- /* var languages_cod = {
-    'Español': 'es_CO',
-    'English': 'en_US',
-    'Deutsch': 'es_CO',
-    'Français': 'es_CO',
-  };*/
-
   var languages = {
     'Español': ['"spa"', 'es_CO', 'es-CO'],
     'English': ['"eng"', 'en_US', 'en-US'],
@@ -49,14 +41,12 @@ class _ChatFranState extends State<ChatFran> {
     'Français': ['"fr"', 'fr_FR', 'fr-FR'],
   };
 
-  //String _currentLocale = languages_cod[nativeLang];
-
 
   _ChatFranState({this.channel, this.nativeLang, this.learningLang, this.username}) {
+    //ChatFran constructor
     channel.sink.add('{"nativeLang":' + languages[nativeLang][0] + ', ' + '"newLang":' + languages[learningLang][0] + ', "username":"' + username  +'"}');
     channel.stream.listen((data) {
       var tmp = {'data': data, 'send':true, 'lang': languages[learningLang][2]};
-      //print(data);
       setState(() {
         messages.add(tmp);
       });
@@ -66,7 +56,7 @@ class _ChatFranState extends State<ChatFran> {
   @override
   void initState() {
     super.initState();
-    initSpeechRecognizer();
+    initSpeechRecognizer(); //Initialize speech recognition
   }
 
   void initSpeechRecognizer() {
@@ -84,9 +74,6 @@ class _ChatFranState extends State<ChatFran> {
       (String speech) => setState(() => resultText = speech),
     );
 
-    /*_speechRecognition.setCurrentLocaleHandler((String locale) =>
- setState(() => _currentLocale = locale));*/
-
     _speechRecognition.setRecognitionCompleteHandler(
       () => setState(() => _isListening = false),
     );
@@ -103,13 +90,11 @@ class _ChatFranState extends State<ChatFran> {
     return Scaffold(
       appBar: 
         PreferredSize(
-        //preferredSize: Size.fromHeight(110),
         preferredSize: Size.fromHeight(height * 0.15),
         child: AppBar(
           bottomOpacity: 1,
           centerTitle: true,
           backgroundColor: Color.fromRGBO(0, 131, 179, 0.6),
-          //backgroundColor: Color.fromRGBO(255, 131, 0, 0.8),
           title: Text("Franle", style: GoogleFonts.norican(fontSize: 50),),
           shape: CubicBezierShapeBorder(),
         ),
@@ -145,7 +130,6 @@ class _ChatFranState extends State<ChatFran> {
       ),
       body:
         Padding(
-          //padding: EdgeInsets.all(16.0),
           padding: EdgeInsets.all(height*0.02),
           child: Container(
       child: Column(
@@ -156,16 +140,13 @@ class _ChatFranState extends State<ChatFran> {
             ),
           ]
         ),
-      ),//WebSocketChat(),
+      ),
         ),
       bottomNavigationBar: PreferredSize(
-        //preferredSize: Size.fromHeight(100),
         preferredSize: Size.fromHeight(height * 0.14),
         child: BottomAppBar(
           color: Color.fromRGBO(0, 131, 179, 0.6),
-          //color: Color.fromRGBO(255, 131, 0, 0.8),
           child: Padding(
-            //padding: const EdgeInsets.all(23.0),
             padding: EdgeInsets.all(height * 0.032),
           ),
           shape: AutomaticNotchedShape(CubicBezierShapeBorderBottom(),), // CircleBorder(),),
@@ -196,25 +177,11 @@ class _ChatFranState extends State<ChatFran> {
                   heroTag: 'btn2',
                   child: Icon(Icons.mic),
                   onPressed: () {
-                    //channel.sendChat('UltimaaaPrueba');
-                    /*channel.channel.sink.add('hey how are you?');
-                    var tmp = {'data': 'hey how are you', 'send': false};
-                    setState(() {
-                      channel.messages.add(tmp);
-                    });*/
-                    //obj.sendChat('Pruebaaaaaaaaaaaaaaaaaaa12453');
                     if (_isAvailable && !_isListening) {
                       _speechRecognition
                           .listen(locale: languages[nativeLang][1])
                           .then((result) {
-                            //sendChat(resultText);
                           });
-                      //sendChat(resultText);
-                      /*channel.sink.add(resultText);
-                      var tmp = {'data': resultText, 'send': false};
-                      setState(() {
-                        messages.add(tmp);
-                      });*/
                     }
                   },
                   backgroundColor: Color.fromRGBO(255, 144, 25, 0.8),
@@ -239,6 +206,7 @@ class _ChatFranState extends State<ChatFran> {
     );
   }
 
+  // For display the list of bubbles chats
   ListView chatList() {
     List<Widget> listaChats = [];
 
@@ -248,9 +216,8 @@ class _ChatFranState extends State<ChatFran> {
     return ListView(children: listaChats,);
   }
 
+  // Send the text chat to web socket
   void sendChat(String text) {
-    //print(text + " is into the sendChat");
-    //if (text.isEmpty) {
     if (text != "") {
       var temp = '{"message":"' + text + '", "username":"' + username + '"}';
       channel.sink.add(temp);
@@ -259,6 +226,5 @@ class _ChatFranState extends State<ChatFran> {
         messages.add(tmp);
       });
     }
-    //}
   }
 }

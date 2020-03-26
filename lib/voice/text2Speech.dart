@@ -27,9 +27,7 @@ class _Text2SpeechState extends State<Text2Speech> {
 
   initTts() {
     flutterTts = FlutterTts();
-    //flutterTts.setLanguage('en-US');
     flutterTts.setLanguage('es-CO');
-    //_getLanguages();
   }
 
   @override
@@ -45,13 +43,11 @@ class _Text2SpeechState extends State<Text2Speech> {
 
     if (text != null && text.isNotEmpty) {
       await flutterTts.speak(text);
-      //if (result == 1) setState(() => ttsState = TtsState.playing);
     }
   }
 
   Future _stop() async {
     await flutterTts.stop();
-    //if (result == 1) setState(() => ttsState = TtsState.stopped);
   }
 
   
@@ -59,7 +55,6 @@ class _Text2SpeechState extends State<Text2Speech> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      //width: MediaQuery.of(context).size.width * 0.2,
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
         IconButton(
           icon: Icon(Icons.play_arrow),

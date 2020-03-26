@@ -7,19 +7,11 @@ import './chat/franlechat.dart';
 
 void main() => runApp(MyApp());
 
-// This opction it's for debuggin the responsive
-/*void main() => runApp(
-  DevicePreview(
-    builder: (context) => MyApp(),
-  ),
-);*/
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      //builder: DevicePreview.appBuilder,
-      home: LoginScreen(), //ChatFran(), LoginScreen(),SelectScreen(), ChatFran(), ChatFranle(), WebSocketChat(),
+      home: LoginScreen(),
     );
   }
 }

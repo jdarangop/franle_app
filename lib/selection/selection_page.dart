@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:franle_app/chat/chatfranle.dart';
 import 'package:franle_app/chat/franlechat.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:franle_app/chat/appbarstyle.dart';
 
 class SelectScreen extends StatefulWidget {
   String username;
@@ -32,7 +33,6 @@ class SelectScreenState extends State<SelectScreen> {
     return Scaffold(
       appBar: 
         PreferredSize(
-        //preferredSize: Size.fromHeight(110),
         preferredSize: Size.fromHeight(height * 0.15),
         child: AppBar(
           centerTitle: true,
@@ -42,22 +42,18 @@ class SelectScreenState extends State<SelectScreen> {
         ),
 
       bottomNavigationBar: PreferredSize(
-        //preferredSize: Size.fromHeight(100),
         preferredSize: Size.fromHeight(height * 0.14),
         child: BottomAppBar(
           color: Color.fromRGBO(0, 131, 179, 0.6),
-          //color: Color.fromRGBO(255, 131, 0, 0.8),
           child: Padding(
-            //padding: const EdgeInsets.all(23.0),
             padding: EdgeInsets.all(height * 0.032),
           ),
-          shape: AutomaticNotchedShape(CubicBezierShapeBorderBottom(),), // CircleBorder(),),
+          shape: AutomaticNotchedShape(CubicBezierShapeBorderBottom(),),
         ),
       ),
       
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        //crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -91,9 +87,6 @@ class SelectScreenState extends State<SelectScreen> {
               DropdownButton(
                 value: _learningLanguage,
                 items: idioms.map((String value) {
-                  /*if (_nativeLanguage != null) {
-                    idioms.removeWhere((item) => item == _nativeLanguage);
-                  }*/
                   return new DropdownMenuItem<String>(
                     value: value,
                     child: new Text(value),

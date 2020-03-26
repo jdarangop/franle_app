@@ -44,10 +44,8 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Color.fromRGBO(0, 131, 179, 0.8),
       appBar:
         PreferredSize(
-        //preferredSize: Size.fromHeight(110),
         preferredSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.05),
         child: Container(
           child: AppBar(
@@ -66,7 +64,6 @@ class LoginScreen extends StatelessWidget {
             child: Text('Franle',
               style: GoogleFonts.norican(
                 fontSize: 50,
-                color: Color.fromRGBO(0, 131, 179, 0.8),
               ),
             ),
           ),
@@ -115,22 +112,6 @@ class LoginScreen extends StatelessWidget {
                       }
 
                       checkingUser();
-                             /*builder: (context, userfetched) {
-
-                          switch (userfetched.connectionState) {
-                            case ConnectionState.waiting: return new Text('Loading....');
-                            default:
-                            if (userfetched.hasError)
-                              return new Text('Error: ${userfetched.error}');
-                            else {
-                              if (userfetched.data.password == newUser.passInput) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => SelectScreen()),
-                                );
-                                return new Text()
-                              }
-                              */
                     },
                     child: Text('Login')
                   ),

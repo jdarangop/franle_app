@@ -9,7 +9,6 @@ class WebSocketChat extends StatefulWidget {
   List<Map> messages = [];
   String text = "";
 
-  //WebSocketChat({this.text})
   void sendChat(String text) {
     text = text;
   }
@@ -73,12 +72,10 @@ class WebSocketChatState extends State<WebSocketChat> {
   @override
   void sendChat(String text) {
     print(text);
-    //if (text.isEmpty) {
     channel.sink.add(text);
     var tmp = {'data': text, 'send': false};
     setState(() {
         messages.add(tmp);
     });
-    //}
   }
 }

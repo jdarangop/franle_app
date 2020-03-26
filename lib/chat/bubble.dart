@@ -29,8 +29,6 @@ class Bubble extends StatelessWidget {
       crossAxisAlignment: align,
       children: <Widget>[
         Container(
-          //margin: EdgeInsets.all(7.0),
-          //padding: const EdgeInsets.all(7.0),
           margin: EdgeInsets.all(size * 0.01),
           padding: EdgeInsets.all(size * 0.01),
           decoration: BoxDecoration(
@@ -48,7 +46,6 @@ class Bubble extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(right: size * 0.25),
-                //padding: EdgeInsets.only(right: 200.0),
                 child: Text2Speech(text: message, language: language,),
               ),
             ],
